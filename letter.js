@@ -5,6 +5,9 @@ module.exports.L = class Letter {
   }
 
   check(b) {
-    this.guessed = this.letter === b
+    if (!this.guessed) {
+      return this.guessed = this.letter === b
+    }
+    else {return false}
   }
-}
+};
