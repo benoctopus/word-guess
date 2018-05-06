@@ -1,35 +1,22 @@
 const inq = require('inquirer');
 const colors = require('colors');
 const Word = require('./word').Word;
+const Game = require('./game').Game;
+let bank;
+
+async function run() {
+  if (!bank || bank.length < 1) {
+    bank = resetBank();
+  }
+  let game = new Game(bank[0]);
+  await game.init();
+  run()
+}
+
+
+
+function resetBank() {
+  return require('./data').bank.slice(0)
+}
 
 run();
-
-function run() {
-
-  const w = new Word('hey guys');
-  let chances = 10;
-  main();
-
-  function main() {
-    console.log(w.display());
-    inq.prompt([
-        {
-          type: 'input',
-          message: 'guess a letter',
-          name: 'guess'
-        }
-      ]
-    ).then(res => {
-      console.log(
-        '\n\n'
-        + w.check(res.guess) ?
-          `success \nchances remaining: ${chances}`
-          : `incorrect \nchances remaining: ${chances--}\n\n`
-          );
-      main()
-    });
-
-  }
-
-
-}
