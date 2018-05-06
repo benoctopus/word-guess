@@ -2,6 +2,7 @@ const L = require('./letter').L;
 
 module.exports.Word = class Word {
   constructor(word) {
+    this.origional = word;
     this.word = this.arrayOfL(word);
     this.tried = [];
   }
@@ -21,7 +22,9 @@ module.exports.Word = class Word {
   }
 
   check(letter) {
-    this.tried.push(letter);
+    if (!(this.tried.indexOf(letter) >= 0 || letter.length > 1)) {
+      this.tried.push(letter);
+    }
     let ch = this.word.slice().map(l => !!l ? l.check(letter) : null);
     return (ch.indexOf(true) >= 0)
   }
