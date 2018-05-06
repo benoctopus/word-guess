@@ -9,7 +9,7 @@ module.exports.Game = class Game {
   }
 
   init() {
-    return new Promise(resolve => (this.loop(resolve)))
+    return new Promise(resolve => this.loop(resolve))
   }
 
   async loop(resolve) {
